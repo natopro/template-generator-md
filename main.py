@@ -26,6 +26,16 @@ async def on_ready():
 https://imdb.com/title/ttxxxxxx
 """
 
+"""
+`Biography | Comedy | Drama`
+:drive: Name with spaces
+
+**Size: XXGB**
+https://links.gamesdrive.net/#/link/aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL29wZW4_aWQ9MTJvQUp3STB2VnVaOV90dGRSYTlWcFRBdkhUeEtCWVhW.UHJvZ2FtZXJ6
+
+https://www.imdb.com//title/tt3553442/
+"""
+
 
 @bot.command()
 @commands.max_concurrency(1, per=commands.BucketType.default, wait=False)
@@ -116,19 +126,24 @@ async def template(ctx, google_drive_link=None, actual_imdb_link=None, actual_si
                     list_of_genres = ['No Genre Found']
                 try:
                     name_string = drive_obj.name()
+
                 except:
                     name_string = "Unable to get name"
                 genre_string = f"`{' | '.join(list_of_genres)}`"
+
                 try:
                     sizeee = drive_obj.give_size()
+
                 except ValueError:
                     sizeee = "Unable to get size"
-                size_string = f"> Size: **{sizeee}**"
-                link_string = f"> Link: <{drive_obj.getGamesDriveLink(ctx.author)}>"
+                size_string = f"Size: **{sizeee}**"
+                author = ctx.author.display_name
+                link_string = f"{drive_obj.get_games_drive_link(author)}"
                 imdb_link_string = f"https://www.imdb.com/title/tt{imdb_id}"
 
                 ultimate = genre_string + "\n" + ":drive: " + name_string + "\n\n" + \
                            size_string + "\n" + link_string + "\n\n" + imdb_link_string
+
                 await ctx.send(f"Preview:\n\n{ultimate}")
                 await ctx.send(f"Copy paste this:\n```\n{ultimate}\n```")
                 return
@@ -146,12 +161,11 @@ async def template(ctx, google_drive_link=None, actual_imdb_link=None, actual_si
                 except ValueError:
                     sizeee = "Unable to get size"
                 size_string = f"> Size: **{sizeee}**"
-                link_string = f"> Link: <{drive_obj.getGamesDriveLink(ctx.author)}>"
+                link_string = f"> Link: <{drive_obj.get_games_drive_link(ctx.author)}>"
                 imdb_link_string = actual_imdb_link
 
                 ultimate = genre_string + "\n" + ":drive: " + name_string + "\n\n" + \
                            size_string + "\n" + link_string + "\n\n" + imdb_link_string
-
                 await ctx.send(f"Preview:\n\n{ultimate}")
                 await ctx.send(f"Copy paste this:\n```\n{ultimate}\n```")
 

@@ -101,10 +101,11 @@ class GoogleDriveObject:
             except:
                 raise ValueError("Unable to get size")
 
-    def getGamesDriveLink(self, uploader_name=None):
+    def get_games_drive_link(self, uploader_name=None):
         link_b64 = base64.b64encode(self.link.encode('utf-8'))
         uploader_b64 = base64.b64encode(uploader_name.encode('utf-8'))
-        return f'https://links.gamesdrive.net/#/link/{link_b64.decode("utf-8")}.{uploader_b64.decode("utf-8")}'
+        result = f'https://links.gamesdrive.net/#/link/{link_b64.decode("utf-8")}.{uploader_b64.decode("utf-8")}'
+        return result
 
 
 class ImdbObject:
